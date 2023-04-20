@@ -1,0 +1,32 @@
+Complete this document and upload along with your prediction results and your code.
+
+### Method Name ###
+cipherword word2vec embedding + BiLSTM
+
+
+### Representation of sentence ###
+I used word2vec to generate the word vector of the context word for word2vec embedding and carried some sentences preprocessing(keras tokenizer) at earlier stages.
+
+
+### Classifier ###
+Initially, some scratch and keras preprocessing(Tokenizer) is carried out on training and validation dataset. An embedding file("GoogleNews-vectors-negative300.bin.gz'") by word2vec is used to produce a pretrained word embedding. An embedded matrix is generated with size of vocab_size and the dimension=300 provided by word2vec. An embedded dictionary is used to keep track of word, modeled by word2vec model. Finally a sequential model is defined with Embedding layer, BiLSTM layer, Dropout layer, and an activation layer and is used for training data and generating the validation accuracy on validation dataset. Finally, the predictions are made for the test data. 
+
+
+
+### Training & Development ###
+The validation dataset ciphertext is preprocessed using keras tokenizer and the cipher text is padded to generate a validation dataset padded sequence which is used to fit the model. I have used an adam optimizer with the learning rate of learning_rate=3e-4 and a 128 bit sized units for BiLSTM to generate the model. I am using 20 epochs to terminate the training of the model as the validation accuracy stabilizes and doesn't change much.
+
+
+### Other methods ###
+I tried CNN+BiLSTM and CuDNNLSTM model other than my main model.CNN+BiLST model accuracy was less and I had some trouble dealing with CuDNNLSTM model.
+
+
+### Packages ###
+1. from keras.models import Model
+2. from keras.layers import Dense, Dropout Embedding, LSTM, Bidirectional
+3. from keras.preprocessing.sequence import pad_sequences
+4. from gensim.models import word2vec
+5. from gensim.models import KeyedVectors
+6. from tensorflow.keras.optimizers import Adam
+7. from keras.preprocessing.text import Tokenizer
+8. import gensim
